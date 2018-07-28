@@ -1,0 +1,22 @@
+<mvt:assign name="l.settings:checkrequiredattr" value="''"/>
+<mvt:foreach iterator="attribute" array="attributes">
+	<mvt:if expr="l.settings:attribute:required">
+		<mvt:if expr="l.settings:attribute:type EQ 'text' OR l.settings:attribute:type EQ 'memo'">
+			<mvt:if expr="ISNULL l.settings:attribute:value">
+				<mvt:if expr="(l.settings:attribute:code CIN l.settings:checkrequiredattr) EQ 0">
+					<mvt:assign name="l.settings:checkrequiredattr" value="l.settings:checkrequiredattr$'|'$l.settings:attribute:code"/>
+					&mvt:attribute:prompt;<br/>
+				</mvt:if>
+			</mvt:if>
+			<mvt:else>
+				<mvt:foreach iterator="option" array="attribute:options">
+					<mvt:if expr="ISNULL g.Product_Attributes[l.settings:attribute:index]:value">
+						<mvt:if expr="(l.settings:attribute:code CIN l.settings:checkrequiredattr) EQ 0">
+							<mvt:assign name="l.settings:checkrequiredattr" value="l.settings:checkrequiredattr$'|'$l.settings:attribute:code"/>
+								&mvt:attribute:prompt;<br/>
+						</mvt:if>
+					</mvt:if>
+				</mvt:foreach>
+		</mvt:if>
+	</mvt:if>
+</mvt:foreach>
