@@ -1,1 +1,1 @@
-# Miva-Snippet-to-Show-Missing-Attributes-
+This Snippet Will display missing product attributes.
